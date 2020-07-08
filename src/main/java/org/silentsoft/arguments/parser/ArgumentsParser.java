@@ -18,17 +18,18 @@ public class ArgumentsParser {
 	
 	/**
 	 * Supported command line arguments formats are:<br>
+	 * <ul>
 	 * <li><code>-a -b</code></li>
 	 * <li><code>-key1=value1 -key2=value2</code></li>
 	 * <li><code>-key1 value1 -key2 value2</code></li>
 	 * <li><code>-key1=value1 value2 -key2=value3 value4</code></li>
 	 * <li><code>-key1 value1 value2 -key2 value3 value4</code></li>
-	 * <br>
 	 * <li><code>--a --b</code></li>
 	 * <li><code>--key1=value1 --key2=value2</code></li>
 	 * <li><code>--key1 value1 --key2 value2</code></li>
 	 * <li><code>--key1=value1 value2 --key2=value3 value4</code></li>
 	 * <li><code>--key1 value1 value2 --key2 value3 value4</code></li>
+	 * </ul>
 	 * <p>
 	 * 
 	 * @param args
@@ -43,8 +44,8 @@ public class ArgumentsParser {
 	 * Usage:
 	 * <pre>
 	 * public static void main(String[] args) throws Exception {
-	 *     ArgumentsValidator validator = (arguments) -> {
-	 *         if (arguments.containsKey("-a") && arguments.containsKey("-b")) {
+	 *     ArgumentsValidator validator = (arguments) -&gt; {
+	 *         if (arguments.containsKey("-a") &amp;&amp; arguments.containsKey("-b")) {
 	 *             throw new InvalidArgumentsException("'-a' and '-b' cannot be exists together.");
 	 *         }
 	 *         
