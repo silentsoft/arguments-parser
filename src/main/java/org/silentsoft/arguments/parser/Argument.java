@@ -37,7 +37,7 @@ public class Argument implements Comparable<Argument> {
 	
 	@Override
 	public boolean equals(Object obj) {
-		return toString().equals(obj.toString());
+		return obj == null ? false : toString().equals(obj.toString());
 	}
 
 	@Override

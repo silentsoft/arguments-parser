@@ -24,6 +24,7 @@ public class ArgumentsParserTest {
 		{
 			Assert.assertTrue(Argument.of("A").equals(Argument.of("A")));
 			Assert.assertFalse(Argument.of("a").equals(Argument.of("A")));
+			Assert.assertFalse(Argument.of("a").equals(null));
 		}
 		{
 			Arguments arguments = ArgumentsParser.parse(new String[] {"-a", "--a", "---a"});
