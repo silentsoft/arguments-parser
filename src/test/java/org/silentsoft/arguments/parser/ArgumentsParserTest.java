@@ -172,6 +172,10 @@ public class ArgumentsParserTest {
 			Assert.assertEquals(3, arguments.size());
 		}
 		{
+			Arguments arguments = ArgumentsParser.parse(new String[] {"-a", "--a", "---a"}).with(null);
+			Assert.assertEquals(3, arguments.size());
+		}
+		{
 			Arguments arguments = ArgumentsParser.parse(new String[] {"-a", "--a", "---a"}).with(ParsingOptions.LEAVE_DASH_PREFIX);
 			Assert.assertEquals(3, arguments.size());
 			Assert.assertNotNull(arguments.get("-a"));
@@ -189,6 +193,12 @@ public class ArgumentsParserTest {
 		{
 			Arguments arguments = ArgumentsParser.parse(new String[] {"-a", "--A"}).with(ParsingOptions.REMOVE_DASH_PREFIX);
 			Assert.assertEquals(1, arguments.size());
+			Assert.assertNotNull(arguments.get("a"));
+			Assert.assertNotNull(arguments.get("A"));
+		}
+		{
+			Arguments arguments = ArgumentsParser.parse(new String[] {"-a", "--A"}).with(ParsingOptions.REMOVE_DASH_PREFIX, ParsingOptions.CASE_SENSITIVE);
+			Assert.assertEquals(2, arguments.size());
 			Assert.assertNotNull(arguments.get("a"));
 			Assert.assertNotNull(arguments.get("A"));
 		}
@@ -309,6 +319,9 @@ public class ArgumentsParserTest {
 				return true;
 			};
 			
+			Assert.assertFalse(exception.test(() -> {
+				ArgumentsParser.parse(new String[] {"-a"}, null);
+			}));
 			Assert.assertFalse(exception.test(() -> {
 				ArgumentsParser.parse(new String[] {"-a"}, validator);
 			}));
