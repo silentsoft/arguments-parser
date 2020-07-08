@@ -2,7 +2,6 @@
 
 ![release](https://img.shields.io/badge/release-v1.0.0-blue.svg)
 [![Build Status](https://travis-ci.com/silentsoft/arguments-parser.svg?branch=master)](https://travis-ci.com/silentsoft/arguments-parser)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=silentsoft_arguments-parser&metric=alert_status)](https://sonarcloud.io/dashboard?id=silentsoft_arguments-parser)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=silentsoft_arguments-parser&metric=coverage)](https://sonarcloud.io/dashboard?id=silentsoft_arguments-parser)
 [![HitCount](http://hits.dwyl.com/silentsoft/arguments-parser.svg)](http://hits.dwyl.com/silentsoft/arguments-parser)
 
