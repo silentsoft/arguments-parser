@@ -37,6 +37,10 @@ public final class Arguments implements Iterable<Argument> {
 		return set.size();
 	}
 	
+	public boolean isEmpty() {
+		return set.isEmpty();
+	}
+	
 	public Argument get(String key) {
 		Optional<Argument> optional = stream(key).findAny();
 		return optional.isPresent() ? optional.get() : null;
@@ -79,13 +83,13 @@ public final class Arguments implements Iterable<Argument> {
 			source = set;
 		}
 		Function<String, String> transform = (key) -> {
-			return getOptions().contains(ParsingOptions.REMOVE_DASH_PREFIX) ? removeDashPrefix(key) : key;
+			return getOptions().contains(ParsingOptions.REMOVE_DASH_PREFIX) ? key.replaceFirst("(-)+", "") : key;
 		};
 		source.forEach(argument -> {
 			String key;
 			if (argument.getKey().startsWith("--") && getOptions().contains(ParsingOptions.CASE_INSENSITIVE_DOUBLE_DASH)) {
 				key = argument.getKey().toLowerCase();
-			} else if (argument.getKey().startsWith("-") && argument.getKey().startsWith("--") == false && getOptions().contains(ParsingOptions.CASE_INSENSITIVE_SINGLE_DASH)) {
+			} else if (argument.getKey().startsWith("--") == false && getOptions().contains(ParsingOptions.CASE_INSENSITIVE_SINGLE_DASH)) {
 				key = argument.getKey().toLowerCase();
 			} else if (getOptions().contains(ParsingOptions.CASE_INSENSITIVE)) {
 				key = argument.getKey().toLowerCase();
@@ -195,21 +199,6 @@ public final class Arguments implements Iterable<Argument> {
 		};
 		
 		return set.stream().filter(predicate);
-	}
-	
-	private String removeDashPrefix(String value) {
-		int index = 0;
-		
-		char[] charArray = value.toCharArray();
-		for (int length=charArray.length; index<length; index++) {
-			if (charArray[index] == '-') {
-				continue;
-			}
-			
-			break;
-		}
-		
-		return value.substring(index);
 	}
 	
 	@Override

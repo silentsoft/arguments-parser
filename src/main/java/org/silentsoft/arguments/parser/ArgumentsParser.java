@@ -67,6 +67,10 @@ public class ArgumentsParser {
 		if (args != null) {
 			for (String arg : args) {
 				if (arg.startsWith("-")) {
+					if (arg.matches("(-)+")) {
+						throw new InvalidArgumentsException("The argument key is missing.");
+					}
+					
 					int indexOfEqual = arg.indexOf("=");
 					if (indexOfEqual == -1) {
 						arguments.add(Argument.of(arg));
@@ -75,11 +79,11 @@ public class ArgumentsParser {
 						arguments.add(Argument.of(pair[0], pair[1]));
 					}
 				} else {
-					if (arguments.size() > 0) {
-						arguments.last().getValues().add(arg);
-					} else {
+					if (arguments.isEmpty()) {
 						throw new InvalidArgumentsException("The first argument must be starts with '-' or '--'.");
 					}
+					
+					arguments.last().getValues().add(arg);
 				}
 			}
 		}
