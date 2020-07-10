@@ -36,10 +36,19 @@ public class Argument implements Comparable<Argument> {
 	}
 	
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + key.hashCode();
+		result = prime * result + values.hashCode();
+		return result;
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
 		return obj == null ? false : toString().equals(obj.toString());
 	}
-
+	
 	@Override
 	public int compareTo(Argument o) {
 		return toString().compareTo(o.toString());
