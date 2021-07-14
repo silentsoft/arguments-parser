@@ -1,10 +1,10 @@
 # Arguments Parser
 
-![release](https://img.shields.io/badge/release-v1.1.0-blue.svg)
+![Maven Central](https://img.shields.io/maven-central/v/org.silentsoft/arguments-parser)
 [![Build Status](https://travis-ci.com/silentsoft/arguments-parser.svg?branch=master)](https://travis-ci.com/silentsoft/arguments-parser)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=silentsoft_arguments-parser&metric=alert_status)](https://sonarcloud.io/dashboard?id=silentsoft_arguments-parser)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=silentsoft_arguments-parser&metric=coverage)](https://sonarcloud.io/dashboard?id=silentsoft_arguments-parser)
-[![HitCount](http://hits.dwyl.com/silentsoft/arguments-parser.svg)](http://hits.dwyl.com/silentsoft/arguments-parser)
+[![Hits](https://hits.sh/github.com/silentsoft/arguments-parser.svg)](https://hits.sh)
 
 > Do not parsing main(args) anymore !
 
@@ -24,13 +24,11 @@
 
 ## Maven Central
 ```xml
-<dependencies>
-    <dependency>
-        <groupId>org.silentsoft</groupId>
-        <artifactId>arguments-parser</artifactId>
-        <version>1.1.0</version>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>org.silentsoft</groupId>
+    <artifactId>arguments-parser</artifactId>
+    <version>1.1.0</version>
+</dependency>
 ```
 
 ## Usage
