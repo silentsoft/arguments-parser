@@ -1,7 +1,7 @@
 # Arguments Parser
 
-![Maven Central](https://img.shields.io/maven-central/v/org.silentsoft/arguments-parser)
-[![Build Status](https://travis-ci.com/silentsoft/arguments-parser.svg?branch=master)](https://travis-ci.com/silentsoft/arguments-parser)
+[![Maven Central](https://img.shields.io/maven-central/v/org.silentsoft/arguments-parser)](https://search.maven.org/artifact/org.silentsoft/arguments-parser)
+[![Build Status](https://app.travis-ci.com/silentsoft/arguments-parser.svg?branch=master)](https://app.travis-ci.com/silentsoft/arguments-parser)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=silentsoft_arguments-parser&metric=alert_status)](https://sonarcloud.io/dashboard?id=silentsoft_arguments-parser)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=silentsoft_arguments-parser&metric=coverage)](https://sonarcloud.io/dashboard?id=silentsoft_arguments-parser)
 [![Hits](https://hits.sh/github.com/silentsoft/arguments-parser.svg)](https://hits.sh)
