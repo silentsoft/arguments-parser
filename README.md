@@ -4,7 +4,7 @@
 [![Build Status](https://app.travis-ci.com/silentsoft/arguments-parser.svg?branch=master)](https://app.travis-ci.com/silentsoft/arguments-parser)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=silentsoft_arguments-parser&metric=alert_status)](https://sonarcloud.io/dashboard?id=silentsoft_arguments-parser)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=silentsoft_arguments-parser&metric=coverage)](https://sonarcloud.io/dashboard?id=silentsoft_arguments-parser)
-[![Hits](https://hits.sh/github.com/silentsoft/arguments-parser.svg)](https://hits.sh)
+[![Hits](https://hits.sh/github.com/silentsoft/arguments-parser.svg)](https://hits.sh/github.com/silentsoft/arguments-parser/)
 
 > Do not parsing main(args) anymore !
 
