@@ -27,31 +27,58 @@
 <dependency>
     <groupId>org.silentsoft</groupId>
     <artifactId>arguments-parser</artifactId>
-    <version>1.1.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
 ## Usage
 ```java
 public static void main(String[] args) throws Exception {
-    Arguments arguments = ArgumentsParser.parse(args);
+    Arguments arguments = Arguments.parser(args).parse();
 }
 ```
 
 ## Advanced Topics
 
+### Arguments Helper Usage
+If the `args` contains one of the following help commands then `ArgumentsHelper.help(Arguments)` will be invoked.
+  * -help
+  * --help
+  * -?
+  * --?
+```java
+public static void main(String[] args) throws Exception {
+    Arguments arguments = parseArguments(args);
+}
+
+private static Arguments parseArguments(String[] args) throws InvalidArgumentsException {
+    return Arguments.parser(args).help(arguments -> {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Usage: java -jar application.jar [arguments]\n");
+        builder.append("\n");
+        builder.append("Common arguments:\n");
+        // ...
+        System.out.println(builder.toString());
+
+        System.exit(0);
+    }).parse();
+}
+```
+
 ### Arguments Validator Usage
 ```java
 public static void main(String[] args) throws Exception {
-    ArgumentsValidator validator = (arguments) -> {
+    Arguments arguments = parseArguments(args);
+}
+
+private static Arguments parseArguments(String[] args) throws InvalidArgumentsException {
+    return Arguments.parser(args).validate(arguments -> {
         if (arguments.containsKey("-a") && arguments.containsKey("-b")) {
             throw new InvalidArgumentsException("'-a' and '-b' cannot be exists together.");
         }
-        
+
         return true;
-    };
-    
-    Arguments arguments = ArgumentsParser.parse(args, validator);
+    }).parse();
 }
 ```
 
@@ -70,7 +97,7 @@ public static void main(String[] args) throws Exception {
 ### Usage
 ```java
 public static void main(String[] args) throws Exception {
-    Arguments arguments = ArgumentsParser.parse(args).with(ParsingOptions...);
+    Arguments arguments = Arguments.parser(args, ParsingOptions...).parse();
 }
 ```
 
