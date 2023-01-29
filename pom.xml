@@ -6,7 +6,7 @@
 
 	<groupId>org.silentsoft</groupId>
 	<artifactId>arguments-parser</artifactId>
-	<version>1.1.0</version>
+	<version>2.0.0</version>
 
 	<name>Arguments Parser</name>
 	<description>Arguments Parser is a simple java library to parse command line arguments.</description>
@@ -155,7 +155,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.13</version>
+			<version>4.13.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

@@ -1,10 +1,10 @@
 # Arguments Parser
 
-![release](https://img.shields.io/badge/release-v1.1.0-blue.svg)
-[![Build Status](https://travis-ci.com/silentsoft/arguments-parser.svg?branch=master)](https://travis-ci.com/silentsoft/arguments-parser)
+[![Maven Central](https://img.shields.io/maven-central/v/org.silentsoft/arguments-parser)](https://search.maven.org/artifact/org.silentsoft/arguments-parser)
+[![Build Status](https://app.travis-ci.com/silentsoft/arguments-parser.svg?branch=master)](https://app.travis-ci.com/silentsoft/arguments-parser)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=silentsoft_arguments-parser&metric=alert_status)](https://sonarcloud.io/dashboard?id=silentsoft_arguments-parser)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=silentsoft_arguments-parser&metric=coverage)](https://sonarcloud.io/dashboard?id=silentsoft_arguments-parser)
-[![HitCount](http://hits.dwyl.com/silentsoft/arguments-parser.svg)](http://hits.dwyl.com/silentsoft/arguments-parser)
+[![Hits](https://hits.sh/github.com/silentsoft/arguments-parser.svg)](https://hits.sh/github.com/silentsoft/arguments-parser/)
 
 > Do not parsing main(args) anymore !
 
@@ -24,36 +24,61 @@
 
 ## Maven Central
 ```xml
-<dependencies>
-    <dependency>
-        <groupId>org.silentsoft</groupId>
-        <artifactId>arguments-parser</artifactId>
-        <version>1.1.0</version>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>org.silentsoft</groupId>
+    <artifactId>arguments-parser</artifactId>
+    <version>2.0.0</version>
+</dependency>
 ```
 
 ## Usage
 ```java
 public static void main(String[] args) throws Exception {
-    Arguments arguments = ArgumentsParser.parse(args);
+    Arguments arguments = Arguments.parser(args).parse();
 }
 ```
 
 ## Advanced Topics
 
+### Arguments Helper Usage
+If the `args` contains one of the following help commands then `ArgumentsHelper.help(Arguments)` will be invoked.
+  * -help
+  * --help
+  * -?
+  * --?
+```java
+public static void main(String[] args) throws Exception {
+    Arguments arguments = parseArguments(args);
+}
+
+private static Arguments parseArguments(String[] args) throws InvalidArgumentsException {
+    return Arguments.parser(args).help(arguments -> {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Usage: java -jar application.jar [arguments]\n");
+        builder.append("\n");
+        builder.append("Common arguments:\n");
+        // ...
+        System.out.println(builder.toString());
+
+        System.exit(0);
+    }).parse();
+}
+```
+
 ### Arguments Validator Usage
 ```java
 public static void main(String[] args) throws Exception {
-    ArgumentsValidator validator = (arguments) -> {
+    Arguments arguments = parseArguments(args);
+}
+
+private static Arguments parseArguments(String[] args) throws InvalidArgumentsException {
+    return Arguments.parser(args).validate(arguments -> {
         if (arguments.containsKey("-a") && arguments.containsKey("-b")) {
             throw new InvalidArgumentsException("'-a' and '-b' cannot be exists together.");
         }
-        
+
         return true;
-    };
-    
-    Arguments arguments = ArgumentsParser.parse(args, validator);
+    }).parse();
 }
 ```
 
@@ -72,7 +97,7 @@ public static void main(String[] args) throws Exception {
 ### Usage
 ```java
 public static void main(String[] args) throws Exception {
-    Arguments arguments = ArgumentsParser.parse(args).with(ParsingOptions...);
+    Arguments arguments = Arguments.parser(args, ParsingOptions...).parse();
 }
 ```
 
