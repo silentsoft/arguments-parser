@@ -1,7 +1,7 @@
 ## 2.0.0 (29 Jan 2023)
 
 ### Breaking Changes
-```
+```java
 public static void main(String[] args) throws Exception {
     Arguments arguments = parseArguments(args);
 }
