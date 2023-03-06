@@ -1,3 +1,8 @@
+## 2.0.1 (6 Mar 2023)
+
+### Bug Fixes
+  - Fixed an issue where multiple values with the same key were not being parsed correctly.
+
 ## 2.0.0 (29 Jan 2023)
 
 ### Breaking Changes
