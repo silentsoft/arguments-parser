@@ -62,8 +62,13 @@ public class ArgumentsTest {
 			
 			Assert.assertEquals("b", arguments.get("-a").getValue());
 			Assert.assertEquals("B", arguments.get("-A").getValue());
-			Assert.assertEquals("B", arguments.get("--a").getValue());
-			Assert.assertEquals("B", arguments.get("--A").getValue());
+			Assert.assertEquals(2, arguments.get("--a").getValues().size());
+			Assert.assertEquals(2, arguments.get("--A").getValues().size());
+			Assert.assertEquals(arguments.get("--a"), arguments.get("--A"));
+			Assert.assertTrue(arguments.get("--a").getValues().contains("b"));
+			Assert.assertTrue(arguments.get("--a").getValues().contains("B"));
+			Assert.assertTrue(arguments.get("--A").getValues().contains("b"));
+			Assert.assertTrue(arguments.get("--A").getValues().contains("B"));
 		}
 		{
 			Arguments arguments = Arguments.parser(new String[] {"--hello-world"}).parse();
@@ -165,6 +170,20 @@ public class ArgumentsTest {
 			Assert.assertTrue(arguments.get("--key2").getValues().contains("value4"));
 			Assert.assertFalse(arguments.get("--key2").getValues().contains("value5"));
 		}
+		{
+			Arguments arguments = Arguments.parser(new String[] {"--key2", "value3", "value4", "--key1", "value1", "value2"}).parse();
+			Assert.assertTrue(arguments.containsKey("--key1"));
+			Assert.assertEquals(2, arguments.get("--key1").getValues().size());
+			Assert.assertTrue(arguments.get("--key1").getValues().contains("value1"));
+			Assert.assertTrue(arguments.get("--key1").getValues().contains("value2"));
+			Assert.assertFalse(arguments.get("--key1").getValues().contains("value3"));
+
+			Assert.assertTrue(arguments.containsKey("--key2"));
+			Assert.assertEquals(2, arguments.get("--key2").getValues().size());
+			Assert.assertTrue(arguments.get("--key2").getValues().contains("value3"));
+			Assert.assertTrue(arguments.get("--key2").getValues().contains("value4"));
+			Assert.assertFalse(arguments.get("--key2").getValues().contains("value5"));
+		}
 	}
 
 	@Test
@@ -176,6 +195,28 @@ public class ArgumentsTest {
 		Assert.assertNull(arguments.getValue("--not-existing-key"));
 		Assert.assertEquals("defaultValue", arguments.getValue("--not-existing-key", "defaultValue"));
 		Assert.assertEquals(Arrays.asList("a", "b"), arguments.getValues("--not-existing-key", Arrays.asList("a", "b")));
+	}
+
+	@Test
+	public void valuesTest() throws InvalidArgumentsException {
+		{
+			Arguments arguments = Arguments.parser(new String[] {"--d-token=aaaa-bbbb-cccc-dddd", "--d-tags=tag-b", "tag-a"}).parse();
+			Assert.assertEquals("aaaa-bbbb-cccc-dddd", arguments.getValue("--d-token"));
+			Assert.assertEquals(Arrays.asList("aaaa-bbbb-cccc-dddd"), arguments.getValues("--d-token"));
+			Assert.assertEquals(Arrays.asList("tag-b", "tag-a"), arguments.getValues("--d-tags"));
+		}
+		{
+			Arguments arguments = Arguments.parser(new String[] {"--d-token=aaaa-bbbb-cccc-dddd", "--d-tags=tag-b", "--d-tags=tag-a"}).parse();
+			Assert.assertEquals("aaaa-bbbb-cccc-dddd", arguments.getValue("--d-token"));
+			Assert.assertEquals(Arrays.asList("aaaa-bbbb-cccc-dddd"), arguments.getValues("--d-token"));
+			Assert.assertEquals(Arrays.asList("tag-b", "tag-a"), arguments.getValues("--d-tags"));
+		}
+		{
+			Arguments arguments = Arguments.parser(new String[] {"--d-token=aaaa-bbbb-cccc-dddd", "--d-tags", "tag-b", "tag-a"}).parse();
+			Assert.assertEquals("aaaa-bbbb-cccc-dddd", arguments.getValue("--d-token"));
+			Assert.assertEquals(Arrays.asList("aaaa-bbbb-cccc-dddd"), arguments.getValues("--d-token"));
+			Assert.assertEquals(Arrays.asList("tag-b", "tag-a"), arguments.getValues("--d-tags"));
+		}
 	}
 
 	@Test

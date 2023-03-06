@@ -44,25 +44,35 @@ public final class Arguments implements Iterable<Argument> {
 		options = new ArrayList<ParsingOptions>();
 
 		if (args != null) {
+			Argument last = null;
 			for (String arg : args) {
 				if (arg.startsWith("-")) {
 					if (arg.matches("(-)+")) {
 						throw new InvalidArgumentsException("The argument key is missing.");
 					}
 
+					final Argument argument;
 					int indexOfEqual = arg.indexOf("=");
 					if (indexOfEqual == -1) {
-						add(Argument.of(arg));
+						argument = Argument.of(arg);
+						add(argument);
 					} else {
 						String[] pair = arg.split("=", 2);
-						add(Argument.of(pair[0], pair[1]));
+						if (get(pair[0]) == null) {
+							argument = Argument.of(pair[0], pair[1]);
+							add(argument);
+						} else {
+							argument = get(pair[0]);
+							argument.getValues().add(pair[1]);
+						}
 					}
+					last = argument;
 				} else {
 					if (isEmpty()) {
 						throw new InvalidArgumentsException("The first argument must be starts with '-' or '--'.");
 					}
 
-					last().getValues().add(arg);
+					last.getValues().add(arg);
 				}
 			}
 		}
@@ -100,10 +110,6 @@ public final class Arguments implements Iterable<Argument> {
 		return set.add(argument);
 	}
 
-	private Argument last() {
-		return set.last();
-	}
-	
 	public int size() {
 		return set.size();
 	}
